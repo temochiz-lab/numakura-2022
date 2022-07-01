@@ -1,6 +1,6 @@
  var jsPsych = initJsPsych({
   on_finish: function() {
-    jsPsych.data.get().localSave('csv', 'data.csv');
+    jsPsych.data.get().localSave('csv', 'session1-data.csv');
 //    jsPsych.data.displayData();
   }
 });
@@ -109,7 +109,7 @@ var par_id = {
     {prompt: '性別（1：男性，2：女性，3：回答しない）を入力してください。', columns: 10, required: true, name: 'sex'},
     {prompt: '年齢（半角数字のみ）を入力してください', columns: 10, required: true, name: 'age'},
   ],
-  button_label: '次へ',
+  button_label: '実験の開始',
 };
 
 

@@ -1,20 +1,14 @@
 var jsPsych = initJsPsych({
   on_finish: function() {
-    jsPsych.data.get().localSave('csv', 'data.csv');
+    jsPsych.data.get().localSave('csv', 'session2-data.csv');
 //    jsPsych.data.displayData();
   }
 });
 
-// ------------------------------------------------------------------------
-// 固定の実験パーツ
-// ------------------------------------------------------------------------
-var enter_fullscreen = {
-  type: jsPsychFullscreen,
-  message: '<p>実験名: 2022-1-セッション2</p><p>開始ボタンを押すと全画面表示で実験が始まります。</p>',
-  button_label: "開始",
-  fullscreen_mode: true
-}
 
+// ------------------------------------------------------------------------
+// 共有パーツ
+// ------------------------------------------------------------------------
 var exit_fullscreen = {
   type: jsPsychFullscreen,
   fullscreen_mode: false,
@@ -36,32 +30,99 @@ var blankscreen = {
   trial_duration: 2000,
 };
 
+// ------------------------------------------------------------------------
+// 教示文
+// ------------------------------------------------------------------------
+
+var enter_fullscreen = {
+  type: jsPsychFullscreen,
+  message: '<p>実験名: 2022-沼倉-セッション2</p><p>開始ボタンを押すと全画面表示で実験が始まります。</p>',
+  button_label: "開始",
+  fullscreen_mode: true
+}
+
+var instruction_p1 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: '<div align="left"><font size=6>\
+常磐大学人間科学部心理学科4年・渡辺ゼミナール所属の沼倉 日菜子と申します。<br><br>\
+本日は実験にご協力いただき，誠にありがとうございます。<br><br>\
+私は現在，「文字が与える印象及び認知に及ぼす影響」をテーマに卒業研究に取り組んでいます。<br><br>\
+今回，本研究を行うにあたり，「文字が与える印象」，「文字が認知に及ぼす影響」の二点について調査したく，事前に実験協力に同意いただきました皆様を対象に実験を行います。<br><br>\
+本研究への回答は任意であり，回答の有無により皆様に利益・不利益が生じることはありません。得られたデータは厳重な管理の下で本研究のみに使用され，研究終了後に適切に処分します。また，データは統計的な処理を行うため，個人が特定されることはございません。<br><br>\
+<br></font></div>\
+',
+choices: ['次へ'],
+} ;
+
+var instruction_p2 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: '<div align="left"><font size=6>\
+本実験は「文字が与える印象」，「文字が認知に及ぼす影響」についての2セッション構成で，本日は「文字が認知に及ぼす影響」の実験です。今回は2種類の実験を行います。<br><br>\
+注視点が表示され，その後で呈示された語に対して，前回の実験で呈示された語であると思えば「j」，呈示されていなかった語であると思えば「k」を選んでください。<br><br>\
+練習として3問行った後，本番として20問行います。<br><br>\
+その後，二つ目の実験を行います。<br><br>\
+正しい答えや間違った答えというものはありませんので，他者と相談することなく，思った通りにお答えください。また，実験の途中で体調が悪くなった方は，実験を中断していただいて構いません。<br><br>\
+<br></font></div>\
+',
+choices: ['次へ'],
+} ;
+
+var instruction_p3 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: '<div align="left"><font size=6>\
+練習<br>\
+<br></font></div>\
+',
+choices: ['次へ'],
+} ;
+
+var instruction_p4 = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: '<div align="left"><font size=6>\
+以上で練習は終了です。  <br><br>\
+3つの質問にお答えいただいた後，本番が始まります。<br><br>\
+<br></font></div>\
+',
+choices: ['次へ'],
+} ;
+
+// 被検者情報の入力
+var par_id = {
+  type: jsPsychSurveyText,
+  questions: [
+    {prompt: '参加者ID（例　A1，B2）を入力してください。', columns: 10, required: true, name: 'id'},
+    {prompt: '性別（1：男性，2：女性，3：回答しない）を入力してください。', columns: 10, required: true, name: 'sex'},
+    {prompt: '年齢（半角数字のみ）を入力してください', columns: 10, required: true, name: 'age'},
+  ],
+  button_label: '実験の開始',
+};
+
 // 実験の終了
-var bye2nd = {
-  type: jsPsychHtmlKeyboardResponse,
-  stimulus: 'これで実験は終了です。 PCには触れずに実験者の指示に従ってください。',
+var bye = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: '<div align="left"><font size=6>\
+以上で，一つ目の実験は終了となります。<br>\
+五分間の休憩の後，二つ目の実験を行います。<br>\
+部屋から出ず，席に着いてお待ちください。<br>\
+<br>\
+二つ目の実験では筆記用具を使いますので，机上に準備をお願い致します。<br>\
+筆記用具をお持ちでない方，何かご不明な点等がある方はお声掛けください。<br>\
+<br>\
+<br></font></div>\
+',
+choices: ['終了'],
 };
 
 // ------------------------------------------------------------------------
 // 練習用問題の作成
 // ------------------------------------------------------------------------
-
-// 実験の説明
-var pre_hello2nd = {
-  type: jsPsychHtmlKeyboardResponse,
-  stimulus: '再認セッションの練習を始めます。いまから、一つずつ、画面の中央に ”ひらがな” あるいは、漢字の単語が表示されます。<br><br>\
-表示される単語が、セッション１で\
-見た単語の場合、左手人差し指で<font size=36px;">ｊ</font>、\
-見たことがない単語ならば、右の人差し指で<font size=36px;">K</font>を、なるべく早く・正確に押して下さい。<br><br>\
-セッション１では、ひらがなで表示されていて、再認セションでは、漢字で提示される場合、またその逆の場合もありますので、気をつけて下さい。'
-,
-};
+// group:'j' = 正解
+// group:'k' = 間違え
 
 var pre_examSession2 = [
-  { label: 'たいせいほうかん'   , group:'j' },
-  { label: '新陳代謝'           , group:'j' },
-  { label: 'こうつうあんぜん'   , group:'j' },
-  { label: '大量生産'           , group:'j' },
+  { label: 'サツキ'   , group:'j' },
+  { label: 'スミレ'   , group:'k' },
+  { label: 'レモン'   , group:'j' },
 ];
 
 // 順番をランダマイズしたいので指定しておく
@@ -93,62 +154,27 @@ pre_trials.timeline.push(blankscreen) ;
 // 本番用問題の作成
 // ------------------------------------------------------------------------
 
-// 実験の説明
-var hello2nd = {
-  type: jsPsychHtmlKeyboardResponse,
-  stimulus: '再認セッションを始めます。いまから、一つずつ、画面の中央に ”ひらがな” あるいは、漢字の単語が表示されます。<br><br>\
-表示される単語が、セッション１で\
-見た単語の場合、左手人差し指で<font size=36px;">ｊ</font>、\
-見たことがない単語ならば、右の人差し指で<font size=36px;">K</font>を、なるべく早く・正確に押して下さい。<br><br>\
-セッション１では、ひらがなで表示されていて、再認セションでは、漢字で提示される場合、またその逆の場合もありますので、気をつけて下さい。'
-,
-};
-
-
 var examSession2 = [
-  { label: 'あおいろしんこく'   , group:'j' },
-  { label: 'かんりくみあい'     , group:'j' },
-///*
-  { label: 'けんげんきょうか'   , group:'j' },
-  { label: 'こじんしょとく'     , group:'j' },
-  { label: 'しゃかいほしょう'   , group:'j' },
-  { label: 'せいめいほけん'     , group:'j' },
-  { label: 'たんしんふにん'     , group:'j' },
-  { label: 'にっしんせんそう'   , group:'j' },
-  { label: 'ふくごうそざい'     , group:'j' },
-  { label: 'めいじけんぽう'     , group:'j' },
-  { label: '印鑑証明'           , group:'j' },
-  { label: '規制緩和'           , group:'j' },
-  { label: '健康食品'           , group:'j' },
-  { label: '古典学派'           , group:'j' },
-  { label: '少数激戦'           , group:'j' },
-  { label: '太陽電池'           , group:'j' },
-  { label: '内需拡大'           , group:'j' },
-  { label: '表示価格'           , group:'j' },
-  { label: '補正予算'           , group:'j' },
-  { label: '落語協会'           , group:'j' },
-
-  { label: 'えいようまんてん'   , group:'k' },
-  { label: 'かいはつぎんこう'   , group:'k' },
-  { label: 'きそちしき'         , group:'k' },
-  { label: 'けいきかいふく'     , group:'k' },
-  { label: 'けんていしけん'     , group:'k' },
-  { label: 'こうてききかん'     , group:'k' },
-  { label: 'じつようえいご'     , group:'k' },
-  { label: 'しゅっきんきょひ'   , group:'k' },
-  { label: 'しょうほうかいせい' , group:'k' },
-  { label: 'せかいすいじゅん'   , group:'k' },
-  { label: '耐用年数'           , group:'k' },
-  { label: '伝統芸能'           , group:'k' },
-  { label: '南極条約'           , group:'k' },
-  { label: '灰色高官'           , group:'k' },
-  { label: '標準金利'           , group:'k' },
-  { label: '文化勲章'           , group:'k' },
-  { label: '舗装工事'           , group:'k' },
-  { label: '弥生文化'           , group:'k' },
-//*/
-  { label: '量子力学'           , group:'k' },
-  { label: '労働市場'           , group:'k' },
+  { label: 'アクマ'   , group:'j' },
+  { label: 'キアツ'   , group:'j' },
+  { label: 'クサリ'   , group:'k' },
+  { label: 'コテン'   , group:'k' },
+  { label: 'センイ'   , group:'j' },
+  { label: 'テント'   , group:'k' },
+  { label: 'ハクイ'   , group:'j' },
+  { label: 'ヒトミ'   , group:'k' },
+  { label: 'マツリ'   , group:'k' },
+  { label: 'ユカタ'   , group:'j' },
+  { label: 'インク'   , group:'k' },
+  { label: 'カラス'   , group:'j' },
+  { label: 'キモノ'   , group:'k' },
+  { label: 'コイン'   , group:'j' },
+  { label: 'サユウ'   , group:'k' },
+  { label: 'スルメ'   , group:'j' },
+  { label: 'タヌキ'   , group:'j' },
+  { label: 'ハカセ'   , group:'k' },
+  { label: 'メマイ'   , group:'j' },
+  { label: 'ユノミ'   , group:'k' },
 ];
 
 // 順番をランダマイズしたいので指定しておく
@@ -187,4 +213,4 @@ trials.timeline.push(blankscreen) ;
 // 実験の開始
 // ------------------------------------------------------------------------
 
-jsPsych.run([enter_fullscreen,  pre_hello2nd,pre_trials, hello2nd,trials,bye2nd,exit_fullscreen]);
+jsPsych.run([enter_fullscreen,  instruction_p1,instruction_p2,instruction_p3,pre_trials, instruction_p4,par_id,trials,bye,exit_fullscreen]);
