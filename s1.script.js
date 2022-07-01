@@ -1,6 +1,23 @@
- var jsPsych = initJsPsych({
+// 保存用のファイル名を生成
+function yyyymmddhhmise() {
+  // 日付時間秒を文字列で返す	
+    const dt = new Date();
+    var yyyy = dt.getFullYear();
+    var mm = ('00' + (dt.getMonth()+1)).slice(-2);
+    var dd = ('00' + dt.getDate()).slice(-2);
+    var hh = ('00' + dt.getHours()).slice(-2);
+    var mi = ('00' + dt.getMinutes()).slice(-2);
+    var se = ('00' + dt.getSeconds()).slice(-2);
+  
+    var answer = yyyy + mm + dd + "-" + hh + mm + se ;
+    return (answer);
+  }
+var filename = "numakura-s1-" + yyyymmddhhmise() + ".csv" ;
+// 
+
+var jsPsych = initJsPsych({
   on_finish: function() {
-    jsPsych.data.get().localSave('csv', 'session1-data.csv');
+    jsPsych.data.get().localSave('csv', filename);
 //    jsPsych.data.displayData();
   }
 });
