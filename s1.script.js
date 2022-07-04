@@ -85,7 +85,7 @@ var instruction_p2 = {
 正しい答えや間違った答えというものはありませんので，他者と相談することなく，思った通りにお答えください。また，実験の途中で体調が悪くなった方は，実験を中断していただいて構いません。<br><br>\
 <br></font></div>\
 ',
-choices: ['次へ'],
+choices: ['練習を始める'],
 } ;
 
 var instruction_p3 = {
@@ -251,4 +251,4 @@ for (let i = 0; i< varexam.length; i++) {
 // ------------------------------------------------------------------------
 
 //jsPsych.run([enter_fullscreen,par_id,hello,trials,bye,exit_fullscreen]);
-jsPsych.run([enter_fullscreen,instruction_p1,instruction_p2,instruction_p3,trials_pre,par_id,trials,bye,exit_fullscreen]);
+jsPsych.run([enter_fullscreen,instruction_p1,instruction_p2,trials_pre,par_id,trials,bye,exit_fullscreen]);
