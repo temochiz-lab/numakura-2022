@@ -40,7 +40,7 @@ var preload = {
 var eyepoint = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: '<p style="font-size: 48px;">+</p>',
-  choices: jsPsych.NO_KEYS,
+  choices: "NO_KEYS",
   trial_duration: 1500, // 表示時間
 };
 
@@ -48,7 +48,7 @@ var eyepoint = {
 var blankscreen = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: '',
-  choices: jsPsych.NO_KEYS,
+  choices: "NO_KEYS",
   trial_duration: 2000, // 表示時間 
 };
 
